@@ -102,6 +102,16 @@
   text-transform: none !important;
   color: #f8f8f8;
 }
+.dialogButtonDelete {
+  background: linear-gradient(45deg, #ff3d00 20%, #ffcf33 90%) !important;
+  margin: 16px 0px !important;
+  padding: 6px 16px !important;
+  font-family: "Muli", sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  color: #f8f8f8;
+}
 .dialogAction {
   background-color: #f8f8f8;
   border-top: 1.5px solid #daa520;
@@ -129,6 +139,13 @@ ul {
   margin: 0;
   padding: 0;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
 input {
   font-family: "Muli", sans-serif !important;
 }
