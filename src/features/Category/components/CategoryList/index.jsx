@@ -10,8 +10,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import Moment from "react-moment";
 import categoryApi from "../../../../api/categoryApi";
+import { removeSelected, selected } from "../../categorySlice";
 import Create from "../Create";
+import Delete from "../Delete";
+import Edit from "../Edit";
+import { useSnackbar } from "notistack";
 
 CategoryList.propTypes = {};
 
@@ -29,20 +35,62 @@ const columns = [
   {
     title: "Ngày khởi tạo",
     field: "createdAt",
+    render: (row) => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>,
     cellStyle: { whiteSpace: "nowrap" },
   },
 ];
 
 function CategoryList(props) {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialogCreate, setOpenDialogCreate] = useState(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [onSelected, setOnSelected] = useState();
   const [rowData, setRowData] = useState([]);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleCloseDialogCreate = () => {
+    setOpenDialogCreate(false);
   };
 
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
+  const handleOpenDialogCreate = () => {
+    setOpenDialogCreate(true);
+  };
+
+  const handleCloseDialogEdit = async () => {
+    const action = removeSelected();
+    await dispatch(action);
+
+    setOpenDialogEdit(false);
+  };
+
+  const handleCloseDialogDelete = async () => {
+    const action = removeSelected();
+    await dispatch(action);
+
+    setOpenDialogDelete(false);
+  };
+
+  const onRowUpdate = async () => {
+    if (onSelected?.length >= 2) {
+      enqueueSnackbar("Bạn chỉ được chọn 1 dòng.", { variant: "warning" });
+    } else {
+      const action = selected(onSelected[0]);
+      await dispatch(action);
+
+      setOpenDialogEdit(true);
+    }
+  };
+
+  const onRowDelete = async () => {
+    if (onSelected?.length >= 2) {
+      enqueueSnackbar("Bạn chỉ được chọn 1 dòng.", { variant: "warning" });
+    } else {
+      const action = selected(onSelected[0]);
+      await dispatch(action);
+
+      setOpenDialogDelete(true);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +102,7 @@ function CategoryList(props) {
       );
     };
     fetchCategorys();
-  }, [openDialog]);
+  }, [openDialogCreate, openDialogEdit, openDialogDelete]);
 
   return (
     <>
@@ -68,24 +116,25 @@ function CategoryList(props) {
         }
         columns={columns}
         data={rowData}
+        onSelectionChange={(row) => setOnSelected(row)}
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
             tooltip: "Add News",
             isFreeAction: true,
-            onClick: handleOpenDialog,
+            onClick: handleOpenDialogCreate,
           },
 
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
             tooltip: "Delete News",
-            onClick: () => console.log("Delete News"),
+            onClick: onRowDelete,
           },
 
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
             tooltip: "Edit News",
-            onClick: () => console.log("Edit News"),
+            onClick: onRowUpdate,
           },
         ]}
         options={{
@@ -106,24 +155,74 @@ function CategoryList(props) {
           pageSize: 10,
           paging: true,
           addRowPosition: "first",
+          showSelectAllCheckbox: false,
         }}
       />
 
       <Dialog
         maxWidth="md"
-        open={openDialog}
+        open={openDialogCreate}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
-            handleCloseDialog(event, reason);
+            handleCloseDialogCreate(event, reason);
           }
         }}
       >
         <DialogContent>
-          <Create closeDialog={handleCloseDialog} />
+          <Create closeDialog={handleCloseDialogCreate} />
         </DialogContent>
 
         <DialogActions className="dialogAction">
-          <Button className="dialogButtonCancel" onClick={handleCloseDialog}>
+          <Button
+            className="dialogButtonCancel"
+            onClick={handleCloseDialogCreate}
+          >
+            Thoát
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        maxWidth="md"
+        open={openDialogEdit}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleCloseDialogEdit(event, reason);
+          }
+        }}
+      >
+        <DialogContent>
+          <Edit closeDialog={handleCloseDialogEdit} />
+        </DialogContent>
+
+        <DialogActions className="dialogAction">
+          <Button
+            className="dialogButtonCancel"
+            onClick={handleCloseDialogEdit}
+          >
+            Thoát
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        maxWidth="md"
+        open={openDialogDelete}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleCloseDialogDelete(event, reason);
+          }
+        }}
+      >
+        <DialogContent>
+          <Delete closeDialog={handleCloseDialogDelete} />
+        </DialogContent>
+
+        <DialogActions className="dialogAction">
+          <Button
+            className="dialogButtonCancel"
+            onClick={handleCloseDialogDelete}
+          >
             Thoát
           </Button>
         </DialogActions>

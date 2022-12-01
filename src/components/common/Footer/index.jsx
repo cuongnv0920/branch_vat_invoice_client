@@ -4,7 +4,7 @@ export function Footer(props) {
   return (
     <div className="footer">
       <h5 className="footer__content">Copyright © 2022</h5>
-      <h5 className="footer__content">BIDV Chi nhánh Giam Lâm</h5>
+      <h5 className="footer__content">BIDV Chi nhánh Gia Lâm</h5>
     </div>
   );
 }

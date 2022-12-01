@@ -12,13 +12,13 @@ const categoryApi = {
   },
 
   update(data) {
-    const url = "/category/update";
+    const url = `/category/update/${data.id}`;
     return axiosClient.put(url, data);
   },
 
-  delete(id) {
-    const url = `/categor/delete/${id}`;
-    return axiosClient.delete(url);
+  delete(data) {
+    const url = `/category/delete/${data.id}`;
+    return axiosClient.put(url, data);
   },
 };
 
