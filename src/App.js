@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import { Header, Menu } from "./components/common";
 import News from "./features/News";
 import Category from "./features/Category";
+import Room from "./features/Rooms";
+import Link from "./features/Links";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +35,16 @@ function App() {
     {
       path: "category/*",
       element: <Category />,
+      role: "admin",
+    },
+    {
+      path: "room/*",
+      element: <Room />,
+      role: "admin",
+    },
+    {
+      path: "link/*",
+      element: <Link />,
       role: "admin",
     },
   ];

@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import RoomIcon from "@material-ui/icons/Room";
 import LinkIcon from "@material-ui/icons/Link";
 import CategoryIcon from "@material-ui/icons/Category";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -59,6 +60,12 @@ const menuList = [
     href: "birthday",
     role: "admin",
     icon: <CakeIcon />,
+  },
+  {
+    title: "Phòng/ Ban",
+    href: "room",
+    role: "admin",
+    icon: <RoomIcon />,
   },
   {
     title: "Người sử dụng",

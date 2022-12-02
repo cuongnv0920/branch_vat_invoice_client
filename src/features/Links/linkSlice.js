@@ -1,26 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import categoryApi from "../../api/categoryApi";
+import linkApi from "../../api/linkApi";
 
-export const create = createAsyncThunk("category/create", async (payload) => {
-  const data = await categoryApi.create(payload);
-
-  return data;
-});
-
-export const edit = createAsyncThunk("category/edit", async (payload) => {
-  const data = await categoryApi.update(payload);
+export const create = createAsyncThunk("link/create", async (payload) => {
+  const data = await linkApi.create(payload);
 
   return data;
 });
 
-export const deleted = createAsyncThunk("category/delete", async (payload) => {
-  const data = await categoryApi.delete(payload);
+export const edit = createAsyncThunk("link/edit", async (payload) => {
+  const data = await linkApi.update(payload);
 
   return data;
 });
 
-const categorySlice = createSlice({
-  name: "category",
+export const deleted = createAsyncThunk("link/delete", async (payload) => {
+  const data = await linkApi.delete(payload);
+
+  return data;
+});
+
+const linkSlice = createSlice({
+  name: "link",
   initialState: {},
   reducers: {
     selected(state, action) {
@@ -46,6 +46,6 @@ const categorySlice = createSlice({
   },
 });
 
-const { actions, reducer } = categorySlice;
+const { actions, reducer } = linkSlice;
 export const { selected, removeSelected } = actions;
 export default reducer;

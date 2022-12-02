@@ -1,22 +1,22 @@
-import React from "react";
-import CreateForm from "../CreateForm";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
-import { create } from "../../categorySlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
+import PropTypes from "prop-types";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { edit } from "../../linkSlice";
+import EditForm from "../EditForm";
 
-Create.propTypes = {
+Edit.propTypes = {
   closeDialog: PropTypes.func,
 };
 
-function Create(props) {
+function Edit(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (values) => {
     try {
-      const action = create(values);
+      const action = edit(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
@@ -24,6 +24,7 @@ function Create(props) {
       if (closeDialog) {
         closeDialog();
       }
+      enqueueSnackbar("Cập nhật thành công.", { variant: "success" });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -31,9 +32,9 @@ function Create(props) {
 
   return (
     <div>
-      <CreateForm onSubmit={handleSubmit} />
+      <EditForm onSubmit={handleSubmit} />
     </div>
   );
 }
 
-export default Create;
+export default Edit;
