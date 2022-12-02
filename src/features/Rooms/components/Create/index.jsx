@@ -3,7 +3,7 @@ import CreateForm from "../CreateForm";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
-import { create } from "../../categorySlice";
+import { create } from "../../roomSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 Create.propTypes = {
