@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import roomApi from "../../api/roomApi";
+import { roomApi } from "../../api/index";
 
 export const create = createAsyncThunk("room/create", async (payload) => {
   const data = await roomApi.create(payload);

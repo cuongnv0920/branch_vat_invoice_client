@@ -12,14 +12,14 @@ import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Moment from "react-moment";
-import { categoryApi } from "../../../../api/index";
-import { removeSelected, selected } from "../../categorySlice";
+import { userApi } from "../../../../api/index";
 import Create from "../Create";
 import Delete from "../Delete";
 import Edit from "../Edit";
 import { useSnackbar } from "notistack";
+import { removeSelected, selected } from "../../userSlice";
 
-CategoryList.propTypes = {};
+UserList.propTypes = {};
 
 const columns = [
   {
@@ -28,8 +28,34 @@ const columns = [
     editable: "never",
   },
   {
-    title: "Tên danh mục",
-    field: "name",
+    title: "Họ và tên",
+    field: "fullName",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Địa chỉ email",
+    field: "email",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Phòng/ ban",
+    field: "room.name",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Chức danh",
+    field: "level.name",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Nhóm quyền",
+    field: "role",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Ngày sinh nhật",
+    field: "birthday",
+    render: (row) => <Moment format="DD/MM/YYYY">{row.birthday}</Moment>,
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
@@ -40,7 +66,7 @@ const columns = [
   },
 ];
 
-function CategoryList(props) {
+function UserList(props) {
   const [openDialogCreate, setOpenDialogCreate] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
@@ -60,7 +86,6 @@ function CategoryList(props) {
   const handleCloseDialogEdit = async () => {
     const action = removeSelected();
     await dispatch(action);
-
     setOpenDialogEdit(false);
   };
 
@@ -77,7 +102,6 @@ function CategoryList(props) {
     } else {
       const action = selected(onSelected[0]);
       await dispatch(action);
-
       setOpenDialogEdit(true);
     }
   };
@@ -94,14 +118,11 @@ function CategoryList(props) {
   };
 
   useEffect(() => {
-    const fetchCategorys = async () => {
-      const categorys = await categoryApi.list();
-
-      setRowData(
-        categorys.map((category, index) => ({ ...category, stt: index + 1 }))
-      );
+    const fetchUsers = async () => {
+      const users = await userApi.list();
+      setRowData(users.map((user, index) => ({ ...user, stt: index + 1 })));
     };
-    fetchCategorys();
+    fetchUsers();
   }, [openDialogCreate, openDialogEdit, openDialogDelete]);
 
   return (
@@ -110,7 +131,7 @@ function CategoryList(props) {
         title={
           <div className="materialTableTitle">
             <Typography className="materialTableTitle_content" variant="h6">
-              Danh sách danh mục
+              Danh sách người dùng
             </Typography>
           </div>
         }
@@ -120,20 +141,18 @@ function CategoryList(props) {
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
-            tooltip: "Thêm danh mục",
+            tooltip: "Thêm người dùng",
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
-
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
-            tooltip: "Xóa danh mục",
+            tooltip: "Xóa người dùng",
             onClick: onRowDelete,
           },
-
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
-            tooltip: "Sửa danh mục",
+            tooltip: "Sửa người dùng",
             onClick: onRowUpdate,
           },
         ]}
@@ -161,8 +180,8 @@ function CategoryList(props) {
       />
 
       <Dialog
-        fullWidth="sm"
-        maxWidth="sm"
+        fullWidth="md"
+        maxWidth="md"
         open={openDialogCreate}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -185,8 +204,8 @@ function CategoryList(props) {
       </Dialog>
 
       <Dialog
-        fullWidth="sm"
-        maxWidth="sm"
+        fullWidth="md"
+        maxWidth="md"
         open={openDialogEdit}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -209,8 +228,8 @@ function CategoryList(props) {
       </Dialog>
 
       <Dialog
-        fullWidth="sm"
-        maxWidth="sm"
+        fullWidth="md"
+        maxWidth="md"
         open={openDialogDelete}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -235,4 +254,4 @@ function CategoryList(props) {
   );
 }
 
-export default CategoryList;
+export default UserList;

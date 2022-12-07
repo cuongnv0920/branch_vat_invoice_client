@@ -77,7 +77,7 @@
 
 /* style dialog material-ui */
 .dialogTitle {
-  margin: 8px 0px;
+  margin: 18px 0px;
   padding: 0px 8px;
   border-left: 2px solid #f50057;
   background-color: #f8f8f8;
@@ -148,4 +148,16 @@ h6,
 p,
 input {
   font-family: "Muli", sans-serif !important;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #daa520 !important;
+  border-radius: 8px;
 }

@@ -1,25 +1,23 @@
-import axiosClient from "./axios.Client";
+import axiosClient from "../axios.Client";
 
-const linkApi = {
+export const roomApi = {
   create(data) {
-    const url = "/link/create";
+    const url = "/room/create";
     return axiosClient.post(url, data);
   },
 
   list(data) {
-    const url = "/link/list";
+    const url = "/room/list";
     return axiosClient.get(url, data);
   },
 
   update(data) {
-    const url = `/link/update/${data.id}`;
+    const url = `/room/update/${data.id}`;
     return axiosClient.put(url, data);
   },
 
   delete(data) {
-    const url = `/link/delete/${data.id}`;
+    const url = `/room/delete/${data.id}`;
     return axiosClient.put(url, data);
   },
 };
-
-export default linkApi;

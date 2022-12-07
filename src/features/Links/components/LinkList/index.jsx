@@ -12,7 +12,7 @@ import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Moment from "react-moment";
-import linkApi from "../../../../api/linkApi";
+import { linkApi } from "../../../../api/index";
 import Create from "../Create";
 import Delete from "../Delete";
 import Edit from "../Edit";
@@ -123,20 +123,20 @@ function LinkList(props) {
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
-            tooltip: "Add News",
+            tooltip: "Thêm liên kết",
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
 
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
-            tooltip: "Delete News",
+            tooltip: "Xóa liên kết",
             onClick: onRowDelete,
           },
 
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
-            tooltip: "Edit News",
+            tooltip: "Sửa liên kết",
             onClick: onRowUpdate,
           },
         ]}
@@ -159,11 +159,13 @@ function LinkList(props) {
           paging: true,
           addRowPosition: "first",
           showSelectAllCheckbox: false,
+          maxBodyHeight: 350,
         }}
       />
 
       <Dialog
-        maxWidth="md"
+        fullWidth="sm"
+        maxWidth="sm"
         open={openDialogCreate}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -186,7 +188,8 @@ function LinkList(props) {
       </Dialog>
 
       <Dialog
-        maxWidth="md"
+        mfullWidth="sm"
+        maxWidth="sm"
         open={openDialogEdit}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -209,7 +212,8 @@ function LinkList(props) {
       </Dialog>
 
       <Dialog
-        maxWidth="md"
+        fullWidth="sm"
+        maxWidth="sm"
         open={openDialogDelete}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
