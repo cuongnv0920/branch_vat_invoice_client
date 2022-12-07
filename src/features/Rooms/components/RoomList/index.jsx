@@ -12,7 +12,7 @@ import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Moment from "react-moment";
-import roomApi from "../../../../api/roomApi";
+import { roomApi } from "../../../../api/index";
 import Create from "../Create";
 import { removeSelected, selected } from "../../roomSlice";
 import Delete from "../Delete";
@@ -123,20 +123,20 @@ function RoomList(props) {
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
-            tooltip: "Add News",
+            tooltip: "Thêm phòng/ ban",
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
 
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
-            tooltip: "Delete News",
+            tooltip: "Xóa phòng/ ban",
             onClick: onRowDelete,
           },
 
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
-            tooltip: "Edit News",
+            tooltip: "Sửa phòng/ ban",
             onClick: onRowUpdate,
           },
         ]}
@@ -159,11 +159,13 @@ function RoomList(props) {
           paging: true,
           addRowPosition: "first",
           showSelectAllCheckbox: false,
+          maxBodyHeight: 350,
         }}
       />
 
       <Dialog
-        maxWidth="md"
+        fullWidth="sm"
+        maxWidth="sm"
         open={openDialogCreate}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -186,7 +188,8 @@ function RoomList(props) {
       </Dialog>
 
       <Dialog
-        maxWidth="md"
+        fullWidth="sm"
+        maxWidth="sm"
         open={openDialogEdit}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {
@@ -209,7 +212,8 @@ function RoomList(props) {
       </Dialog>
 
       <Dialog
-        maxWidth="md"
+        fullWidth="sm"
+        maxWidth="sm"
         open={openDialogDelete}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {

@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import RoomIcon from "@material-ui/icons/Room";
 import LinkIcon from "@material-ui/icons/Link";
 import CategoryIcon from "@material-ui/icons/Category";
@@ -23,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Footer } from "../Footer";
 import { closeMenu } from "./menuSlice";
 import "./styles.scss";
+import { NavLink } from "react-router-dom";
 
 const menuList = [
   {
@@ -66,6 +68,12 @@ const menuList = [
     href: "room",
     role: "admin",
     icon: <RoomIcon />,
+  },
+  {
+    title: "Chức danh",
+    href: "level",
+    role: "admin",
+    icon: <AssignmentIcon />,
   },
   {
     title: "Người sử dụng",
@@ -159,12 +167,12 @@ export function Menu(props) {
       <Divider />
 
       <List className="menuList">
-        {menuList.map((menu, index) => (
+        {menuList.map((menu, _) => (
           <ListItem key={menu.href} className="menuList__item">
-            <a href={menu.href} className="menuList__title title">
+            <NavLink to={menu.href} className="menuList__title title">
               <div className="title__icon">{menu.icon}</div>
               <div className="title__text">{menu.title}</div>
-            </a>
+            </NavLink>
           </ListItem>
         ))}
       </List>

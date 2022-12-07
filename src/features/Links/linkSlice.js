@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import linkApi from "../../api/linkApi";
+import { linkApi } from "../../api/index";
 
 export const create = createAsyncThunk("link/create", async (payload) => {
   const data = await linkApi.create(payload);

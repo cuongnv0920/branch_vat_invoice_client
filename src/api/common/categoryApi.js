@@ -1,6 +1,6 @@
-import axiosClient from "./axios.Client";
+import axiosClient from "../axios.Client";
 
-const categoryApi = {
+export const categoryApi = {
   create(data) {
     const url = "/category/create";
     return axiosClient.post(url, data);
@@ -21,5 +21,3 @@ const categoryApi = {
     return axiosClient.put(url, data);
   },
 };
-
-export default categoryApi;

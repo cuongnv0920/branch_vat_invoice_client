@@ -12,14 +12,14 @@ import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Moment from "react-moment";
-import { categoryApi } from "../../../../api/index";
-import { removeSelected, selected } from "../../categorySlice";
+import { levelApi } from "../../../../api/index";
 import Create from "../Create";
 import Delete from "../Delete";
 import Edit from "../Edit";
 import { useSnackbar } from "notistack";
+import { removeSelected, selected } from "../../levelSlice";
 
-CategoryList.propTypes = {};
+LevelList.propTypes = {};
 
 const columns = [
   {
@@ -28,7 +28,7 @@ const columns = [
     editable: "never",
   },
   {
-    title: "Tên danh mục",
+    title: "Chức danh",
     field: "name",
     cellStyle: { whiteSpace: "nowrap" },
   },
@@ -40,7 +40,7 @@ const columns = [
   },
 ];
 
-function CategoryList(props) {
+function LevelList(props) {
   const [openDialogCreate, setOpenDialogCreate] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
@@ -94,14 +94,12 @@ function CategoryList(props) {
   };
 
   useEffect(() => {
-    const fetchCategorys = async () => {
-      const categorys = await categoryApi.list();
+    const fetchLevels = async () => {
+      const levels = await levelApi.list();
 
-      setRowData(
-        categorys.map((category, index) => ({ ...category, stt: index + 1 }))
-      );
+      setRowData(levels.map((level, index) => ({ ...level, stt: index + 1 })));
     };
-    fetchCategorys();
+    fetchLevels();
   }, [openDialogCreate, openDialogEdit, openDialogDelete]);
 
   return (
@@ -110,7 +108,7 @@ function CategoryList(props) {
         title={
           <div className="materialTableTitle">
             <Typography className="materialTableTitle_content" variant="h6">
-              Danh sách danh mục
+              Danh sách chức danh
             </Typography>
           </div>
         }
@@ -120,20 +118,18 @@ function CategoryList(props) {
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
-            tooltip: "Thêm danh mục",
+            tooltip: "Thêm chức danh",
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
-
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
-            tooltip: "Xóa danh mục",
+            tooltip: "Xóa phòng/ ban",
             onClick: onRowDelete,
           },
-
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
-            tooltip: "Sửa danh mục",
+            tooltip: "Sửa phòng/ ban",
             onClick: onRowUpdate,
           },
         ]}
@@ -235,4 +231,4 @@ function CategoryList(props) {
   );
 }
 
-export default CategoryList;
+export default LevelList;

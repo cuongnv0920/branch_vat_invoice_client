@@ -5,6 +5,8 @@ import News from "./features/News";
 import Category from "./features/Category";
 import Room from "./features/Rooms";
 import Link from "./features/Links";
+import Level from "./features/Levels";
+import User from "./features/Users";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +47,16 @@ function App() {
     {
       path: "link/*",
       element: <Link />,
+      role: "admin",
+    },
+    {
+      path: "level/*",
+      element: <Level />,
+      role: "admin",
+    },
+    {
+      path: "user/*",
+      element: <User />,
       role: "admin",
     },
   ];
