@@ -7,6 +7,7 @@ import Room from "./features/Rooms";
 import Link from "./features/Links";
 import Level from "./features/Levels";
 import User from "./features/Users";
+import Margin from "./features/Margin";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,11 @@ function App() {
     {
       path: "level/*",
       element: <Level />,
+      role: "admin",
+    },
+    {
+      path: "margin/*",
+      element: <Margin />,
       role: "admin",
     },
     {
