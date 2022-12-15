@@ -7,10 +7,9 @@ import {
   makeStyles,
   useTheme,
 } from "@material-ui/core";
-import CakeIcon from "@material-ui/icons/Cake";
+import WidgetsIcon from "@material-ui/icons/Widgets";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import RoomIcon from "@material-ui/icons/Room";
@@ -52,18 +51,6 @@ const menuList = [
     icon: <FormatListBulletedIcon />,
   },
   {
-    title: "Danh bạ",
-    href: "contact",
-    role: "admin",
-    icon: <ContactPhoneIcon />,
-  },
-  {
-    title: "Sinh nhật",
-    href: "birthday",
-    role: "admin",
-    icon: <CakeIcon />,
-  },
-  {
     title: "Phòng/ Ban",
     href: "room",
     role: "admin",
@@ -74,6 +61,12 @@ const menuList = [
     href: "level",
     role: "admin",
     icon: <AssignmentIcon />,
+  },
+  {
+    title: "Biên độ tỷ giá",
+    href: "margin",
+    role: "admin",
+    icon: <WidgetsIcon />,
   },
   {
     title: "Người sử dụng",

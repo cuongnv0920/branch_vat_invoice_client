@@ -29,7 +29,7 @@ CreateForm.propTypes = {
 function CreateForm(props) {
   const [rooms, setRooms] = useState([]);
   const [levels, setLevels] = useState([]);
-  const [sex, setSex] = useState("nam");
+  const [sex, setSex] = useState("Mr");
   const [role, setRole] = useState("user");
   const [birthday, setBirthday] = useState(new Date());
 
@@ -171,8 +171,8 @@ function CreateForm(props) {
               value={sex}
               form={form}
             >
-              <FormControlLabel value="nam" control={<Radio />} label="Nam" />
-              <FormControlLabel value="nu" control={<Radio />} label="Nữ" />
+              <FormControlLabel value="Mr" control={<Radio />} label="Nam" />
+              <FormControlLabel value="Ms" control={<Radio />} label="Nữ" />
             </RadioField>
           </Grid>
 
