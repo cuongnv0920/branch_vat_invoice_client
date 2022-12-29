@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 
-Input.propTypes = {
+UploadField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 
@@ -11,7 +11,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export function Input(props) {
+export function UploadField(props) {
   const { form, name, label, disabled, inputProps } = props;
   const { control } = form;
 
@@ -24,17 +24,17 @@ export function Input(props) {
         fieldState: { invalid, error },
       }) => (
         <TextField
+          type="file"
           margin="normal"
           variant="outlined"
           fullWidth
           label={label}
           error={invalid}
           helperText={error?.message}
-          onChange={onChange}
+          onChange={(event) => onChange(event.target.files[0])}
           onBlur={onBlur}
-          name={name}
-          value={value}
           disabled={disabled}
+          name={name}
           inputProps={inputProps}
         />
       )}
