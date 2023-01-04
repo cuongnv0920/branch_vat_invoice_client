@@ -6,8 +6,8 @@ export const levelApi = {
     return axiosClient.post(url, data);
   },
 
-  list(data) {
-    const url = "/level/list";
+  getAll(data) {
+    const url = "/level/getAll";
     return axiosClient.get(url, data);
   },
 

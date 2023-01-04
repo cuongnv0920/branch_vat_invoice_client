@@ -38,6 +38,11 @@ const columns = [
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
+    title: "Số sắp xếp",
+    field: "sort",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
     title: "Ngày khởi tạo",
     field: "createdAt",
     render: (row) => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>,
@@ -100,7 +105,7 @@ function RoomList(props) {
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const rooms = await roomApi.list();
+      const rooms = await roomApi.getAll();
 
       setRowData(rooms.map((room, index) => ({ ...room, stt: index + 1 })));
     };
@@ -213,7 +218,7 @@ function RoomList(props) {
 
       <Dialog
         fullWidth="sm"
-        maxWidth="sm"
+        minWidth="sm"
         open={openDialogDelete}
         onClose={(event, reason) => {
           if (reason !== "backdropClick") {

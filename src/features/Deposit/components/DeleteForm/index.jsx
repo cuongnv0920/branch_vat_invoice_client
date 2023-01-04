@@ -11,7 +11,7 @@ DeleteForm.propTypes = {
 };
 
 function DeleteForm(props) {
-  const selected = useSelector((state) => state.category);
+  const selected = useSelector((state) => state.deposit);
 
   const form = useForm({
     defaultValues: {
@@ -29,14 +29,16 @@ function DeleteForm(props) {
   const { isSubmitting } = form.formState;
 
   return (
-    <div className="deleteCategory">
-      <div className="deleteCategory__title dialogTitle">
-        <Typography className="dialogTitle_content">Xóa danh mục</Typography>
+    <div className="deleteDeposit">
+      <div className="deleteDeposit__title dialogTitle">
+        <Typography className="dialogTitle_content">
+          Xóa Kỳ hạn lãi suất tiền gửi
+        </Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="deleteCategory__content">
-          <p>{`Bạn có chắc chắn muốn xóa danh mục: "${selected.name}"`}</p>
+        <div className="deleteDeposit__content">
+          <p>{`Bạn có chắc chắn muốn xóa Kỳ hạn lãi suất: "${selected.term}"`}</p>
         </div>
 
         <Button
@@ -48,7 +50,7 @@ function DeleteForm(props) {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <CircularProgress className="deleteCategory__progress" />
+            <CircularProgress className="deleteDeposit__progress" />
           ) : (
             "Xóa"
           )}

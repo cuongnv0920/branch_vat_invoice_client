@@ -1,23 +1,23 @@
 import axiosClient from "../axios.Client";
 
-export const marginApi = {
+export const depositApi = {
   create(data) {
-    const url = "/margin/create";
+    const url = "/deposit/create";
     return axiosClient.post(url, data);
   },
 
   getAll(data) {
-    const url = "/margin/getAll";
+    const url = "/deposit/getAll";
     return axiosClient.get(url, data);
   },
 
   update(data) {
-    const url = `/margin/update/${data.id}`;
+    const url = `/deposit/update/${data.id}`;
     return axiosClient.put(url, data);
   },
 
   delete(data) {
-    const url = `/margin/delete/${data.id}`;
+    const url = `/deposit/delete/${data.id}`;
     return axiosClient.put(url, data);
   },
 };

@@ -6,8 +6,8 @@ export const categoryApi = {
     return axiosClient.post(url, data);
   },
 
-  list(data) {
-    const url = "/category/list";
+  getAll(data) {
+    const url = "/category/getAll";
     return axiosClient.get(url, data);
   },
 

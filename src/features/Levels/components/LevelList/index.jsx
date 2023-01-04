@@ -33,6 +33,11 @@ const columns = [
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
+    title: "Số sắp xếp",
+    field: "sort",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
     title: "Ngày khởi tạo",
     field: "createdAt",
     render: (row) => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>,
@@ -95,7 +100,7 @@ function LevelList(props) {
 
   useEffect(() => {
     const fetchLevels = async () => {
-      const levels = await levelApi.list();
+      const levels = await levelApi.getAll();
 
       setRowData(levels.map((level, index) => ({ ...level, stt: index + 1 })));
     };

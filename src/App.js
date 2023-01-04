@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 import { Route, Routes } from "react-router-dom";
 import { Header, Menu } from "./components/common";
-import News from "./features/News";
 import Category from "./features/Category";
-import Room from "./features/Rooms";
-import Link from "./features/Links";
 import Level from "./features/Levels";
-import User from "./features/Users";
+import Link from "./features/Links";
 import Margin from "./features/Margin";
+import Room from "./features/Rooms";
+import User from "./features/Users";
+import Deposit from "./features/Deposit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const routes = [
-    {
-      path: "news/*",
-      element: <News />,
-      role: "admin",
-    },
     {
       path: "category/*",
       element: <Category />,
@@ -63,6 +58,11 @@ function App() {
     {
       path: "user/*",
       element: <User />,
+      role: "admin",
+    },
+    {
+      path: "deposit/*",
+      element: <Deposit />,
       role: "admin",
     },
   ];

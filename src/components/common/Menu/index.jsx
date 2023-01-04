@@ -7,31 +7,24 @@ import {
   makeStyles,
   useTheme,
 } from "@material-ui/core";
-import WidgetsIcon from "@material-ui/icons/Widgets";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import CategoryIcon from "@material-ui/icons/Category";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import RoomIcon from "@material-ui/icons/Room";
 import LinkIcon from "@material-ui/icons/Link";
-import CategoryIcon from "@material-ui/icons/Category";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import HomeIcon from "@material-ui/icons/Home";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import RoomIcon from "@material-ui/icons/Room";
+import WidgetsIcon from "@material-ui/icons/Widgets";
 import clsx from "clsx";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { Footer } from "../Footer";
 import { closeMenu } from "./menuSlice";
 import "./styles.scss";
-import { NavLink } from "react-router-dom";
 
 const menuList = [
-  {
-    title: "Trang chủ",
-    href: "/",
-    role: "user",
-    icon: <HomeIcon />,
-  },
   {
     title: "Danh mục",
     href: "category",
@@ -43,12 +36,6 @@ const menuList = [
     href: "link",
     role: "admin",
     icon: <LinkIcon />,
-  },
-  {
-    title: "Bài viết",
-    href: "news",
-    role: "admin",
-    icon: <FormatListBulletedIcon />,
   },
   {
     title: "Phòng/ Ban",
@@ -65,6 +52,12 @@ const menuList = [
   {
     title: "Biên độ tỷ giá",
     href: "margin",
+    role: "admin",
+    icon: <MonetizationOnIcon />,
+  },
+  {
+    title: "Lãi suất tiền gửi",
+    href: "deposit",
     role: "admin",
     icon: <WidgetsIcon />,
   },

@@ -6,8 +6,8 @@ export const roomApi = {
     return axiosClient.post(url, data);
   },
 
-  list(data) {
-    const url = "/room/list";
+  getAll(data) {
+    const url = "/room/getAll";
     return axiosClient.get(url, data);
   },
 

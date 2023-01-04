@@ -1,12 +1,12 @@
-import { Button, LinearProgress, Typography } from "@material-ui/core";
-import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { Button, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
-import { Input } from "../../../../components/inputField";
-import "./styles.scss";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import * as yup from "yup";
+import { Input } from "../../../../components/inputField";
 
 EditForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -17,11 +17,13 @@ function EditForm(props) {
 
   const schema = yup.object().shape({
     name: yup.string().required("Vui lòng nhập chức danh."),
+    sort: yup.string().required("Vui lòng nhập Số sắp xếp."),
   });
 
   const form = useForm({
     defaultValues: {
       name: selected.name,
+      sort: selected.sort,
       id: selected.id,
     },
 
@@ -39,14 +41,13 @@ function EditForm(props) {
 
   return (
     <div className="editLevel">
-      {isSubmitting && <LinearProgress className="editLevel__progress" />}
-
       <div className="editLevel__title dialogTitle">
         <Typography className="dialogTitle_content">Sửa chức danh</Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <Input name="name" label="Chức danh" form={form} />
+        <Input name="sort" type="number" label="Số sắp xếp" form={form} />
 
         <Button
           className="dialogButtonSave"
@@ -56,7 +57,11 @@ function EditForm(props) {
           size="large"
           disabled={isSubmitting}
         >
-          Lưu
+          {isSubmitting ? (
+            <CircularProgress className="editLevel__progress" />
+          ) : (
+            "Lưu"
+          )}
         </Button>
       </form>
     </div>

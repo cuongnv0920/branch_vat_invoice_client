@@ -119,7 +119,7 @@ function UserList(props) {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const users = await userApi.list();
+      const users = await userApi.getAll();
       setRowData(users.map((user, index) => ({ ...user, stt: index + 1 })));
     };
     fetchUsers();
