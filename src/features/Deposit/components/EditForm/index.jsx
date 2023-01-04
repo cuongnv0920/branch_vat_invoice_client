@@ -13,16 +13,22 @@ EditForm.propTypes = {
 };
 
 function EditForm(props) {
-  const selected = useSelector((state) => state.category);
+  const selected = useSelector((state) => state.deposit);
 
   const schema = yup.object().shape({
-    name: yup.string().required("Vui lòng nhập Tên danh mục."),
+    term: yup.string().required("Vui lòng nhập Kỳ hạn lãi suất."),
+    vnd: yup.string().required("Vui lòng nhập Lãi suất VND."),
+    usd: yup.string().required("Vui lòng nhập Lãi suất USD."),
+    online: yup.string().required("Vui lòng nhập Lãi suất Online."),
     sort: yup.string().required("Vui lòng nhập Số sắp xếp."),
   });
 
   const form = useForm({
     defaultValues: {
-      name: selected.name,
+      term: selected.term,
+      vnd: selected.vnd,
+      usd: selected.usd,
+      online: selected.online,
       sort: selected.sort,
       id: selected.id,
     },
@@ -40,14 +46,20 @@ function EditForm(props) {
   const { isSubmitting } = form.formState;
 
   return (
-    <div className="editCategory">
-      <div className="editCategory__title dialogTitle">
-        <Typography className="dialogTitle_content">Sửa danh mục</Typography>
+    <div className="editdeposit">
+      <div className="editdeposit__title dialogTitle">
+        <Typography className="dialogTitle_content">
+          Sửa Kỳ hạn lãi suất tiền gửi
+        </Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <Input name="name" label="Tên danh mục" form={form} />
+        <Input name="term" label="Kỳ hạn lãi suất" form={form} />
+        <Input name="vnd" type="number" label="VND" form={form} />
+        <Input name="usd" type="number" label="USD" form={form} />
+        <Input name="online" type="number" label="Online" form={form} />
         <Input name="sort" type="number" label="Số sắp xếp" form={form} />
+
         <Button
           className="dialogButtonSave"
           type="submit"
@@ -57,7 +69,7 @@ function EditForm(props) {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <CircularProgress className="editCategory__progress" />
+            <CircularProgress className="editdeposit__progress" />
           ) : (
             "Lưu"
           )}

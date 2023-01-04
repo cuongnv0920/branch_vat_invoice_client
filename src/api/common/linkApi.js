@@ -6,8 +6,8 @@ export const linkApi = {
     return axiosClient.post(url, data);
   },
 
-  list(data) {
-    const url = "/link/list";
+  getAll(data) {
+    const url = "/link/getAll";
     return axiosClient.get(url, data);
   },
 

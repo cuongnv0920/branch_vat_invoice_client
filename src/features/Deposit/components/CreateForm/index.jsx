@@ -4,27 +4,29 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import * as yup from "yup";
 import { Input } from "../../../../components/inputField";
 
-EditForm.propTypes = {
+CreateForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-function EditForm(props) {
-  const selected = useSelector((state) => state.category);
-
+function CreateForm(props) {
   const schema = yup.object().shape({
-    name: yup.string().required("Vui lòng nhập Tên danh mục."),
+    term: yup.string().required("Vui lòng nhập Kỳ hạn lãi suất."),
+    vnd: yup.string().required("Vui lòng nhập Lãi suất VND."),
+    usd: yup.string().required("Vui lòng nhập Lãi suất USD."),
+    online: yup.string().required("Vui lòng nhập Lãi suất Online."),
     sort: yup.string().required("Vui lòng nhập Số sắp xếp."),
   });
 
   const form = useForm({
     defaultValues: {
-      name: selected.name,
-      sort: selected.sort,
-      id: selected.id,
+      term: "",
+      vnd: 0,
+      usd: 0,
+      online: 0,
+      sort: 0,
     },
 
     resolver: yupResolver(schema),
@@ -40,13 +42,18 @@ function EditForm(props) {
   const { isSubmitting } = form.formState;
 
   return (
-    <div className="editCategory">
-      <div className="editCategory__title dialogTitle">
-        <Typography className="dialogTitle_content">Sửa danh mục</Typography>
+    <div className="createDeposit">
+      <div className="createDeposit__title dialogTitle">
+        <Typography className="dialogTitle_content">
+          Thêm Kỳ hạn lãi suất tiền gửi
+        </Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <Input name="name" label="Tên danh mục" form={form} />
+        <Input name="term" label="Kỳ hạn lãi suất" form={form} />
+        <Input name="vnd" type="number" label="VND" form={form} />
+        <Input name="usd" type="number" label="USD" form={form} />
+        <Input name="online" type="number" label="Online" form={form} />
         <Input name="sort" type="number" label="Số sắp xếp" form={form} />
         <Button
           className="dialogButtonSave"
@@ -57,7 +64,7 @@ function EditForm(props) {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <CircularProgress className="editCategory__progress" />
+            <CircularProgress className="createDeposit__progress" />
           ) : (
             "Lưu"
           )}
@@ -67,4 +74,4 @@ function EditForm(props) {
   );
 }
 
-export default EditForm;
+export default CreateForm;

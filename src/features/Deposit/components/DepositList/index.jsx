@@ -12,14 +12,14 @@ import MaterialTable from "material-table";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Moment from "react-moment";
-import { linkApi } from "../../../../api/index";
+import { depositApi } from "../../../../api/index";
 import Create from "../Create";
 import Delete from "../Delete";
 import Edit from "../Edit";
 import { useSnackbar } from "notistack";
-import { removeSelected, selected } from "../../linkSlice";
+import { removeSelected, selected } from "../../depositSlice";
 
-LinkList.propTypes = {};
+DepositList.propTypes = {};
 
 const columns = [
   {
@@ -28,13 +28,23 @@ const columns = [
     editable: "never",
   },
   {
-    title: "Tên liên kết",
-    field: "name",
+    title: "Kỳ hạn",
+    field: "term",
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
-    title: "Liên kết",
-    field: "url",
+    title: "VND",
+    field: "vnd",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "USD",
+    field: "usd",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    title: "Online",
+    field: "online",
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
@@ -50,7 +60,7 @@ const columns = [
   },
 ];
 
-function LinkList(props) {
+function DepositList(props) {
   const [openDialogCreate, setOpenDialogCreate] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
@@ -105,7 +115,7 @@ function LinkList(props) {
 
   useEffect(() => {
     const fetchLinks = async () => {
-      const links = await linkApi.getAll();
+      const links = await depositApi.getAll();
 
       setRowData(links.map((link, index) => ({ ...link, stt: index + 1 })));
     };
@@ -118,7 +128,7 @@ function LinkList(props) {
         title={
           <div className="materialTableTitle">
             <Typography className="materialTableTitle_content" variant="h6">
-              Danh sách liên kết
+              Danh sách Lái suất tiền gửi
             </Typography>
           </div>
         }
@@ -132,13 +142,11 @@ function LinkList(props) {
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
-
           {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
             tooltip: "Xóa liên kết",
             onClick: onRowDelete,
           },
-
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
             tooltip: "Sửa liên kết",
@@ -243,4 +251,4 @@ function LinkList(props) {
   );
 }
 
-export default LinkList;
+export default DepositList;

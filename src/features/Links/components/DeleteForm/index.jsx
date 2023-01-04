@@ -1,4 +1,5 @@
-import { Button, LinearProgress, Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -29,15 +30,13 @@ function DeleteForm(props) {
 
   return (
     <div className="deleteLink">
-      {isSubmitting && <LinearProgress className="deleteLink__progress" />}
-
       <div className="deleteLink__title dialogTitle">
         <Typography className="dialogTitle_content">Xóa liên kết</Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="deleteLink__content">
-          <p>{`Bạn có chắc chắn muốn xóa phòng/ ban: "${selected.title}"`}</p>
+          <p>{`Bạn có chắc chắn muốn xóa phòng/ ban: "${selected.name}"`}</p>
         </div>
 
         <Button
@@ -48,7 +47,11 @@ function DeleteForm(props) {
           size="large"
           disabled={isSubmitting}
         >
-          Xóa
+          {isSubmitting ? (
+            <CircularProgress className="deleteLink__progress" />
+          ) : (
+            "Xóa"
+          )}
         </Button>
       </form>
     </div>

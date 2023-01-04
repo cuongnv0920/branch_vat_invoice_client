@@ -33,6 +33,12 @@ const columns = [
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
+    title: "Số sắp xếp",
+    field: "sort",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+
+  {
     title: "Ngày khởi tạo",
     field: "createdAt",
     render: (row) => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>,
@@ -95,7 +101,7 @@ function CategoryList(props) {
 
   useEffect(() => {
     const fetchCategorys = async () => {
-      const categorys = await categoryApi.list();
+      const categorys = await categoryApi.getAll();
 
       setRowData(
         categorys.map((category, index) => ({ ...category, stt: index + 1 }))

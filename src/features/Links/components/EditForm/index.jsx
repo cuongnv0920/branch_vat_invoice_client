@@ -1,12 +1,12 @@
-import { Button, LinearProgress, Typography } from "@material-ui/core";
-import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { Button, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
-import { Input } from "../../../../components/inputField";
-import "./styles.scss";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import * as yup from "yup";
+import { Input } from "../../../../components/inputField";
 
 EditForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -16,14 +16,16 @@ function EditForm(props) {
   const selected = useSelector((state) => state.link);
 
   const schema = yup.object().shape({
-    title: yup.string().required("Vui lòng nhập Tiêu đề liên kết."),
+    name: yup.string().required("Vui lòng nhập Tên liên kết."),
+    sort: yup.string().required("Vui lòng nhập Số sắp xếp."),
     url: yup.string().required("Vui lòng nhập liên kết."),
   });
 
   const form = useForm({
     defaultValues: {
-      title: selected.title,
+      name: selected.name,
       url: selected.url,
+      sort: selected.sort,
       id: selected.id,
     },
 
@@ -41,15 +43,14 @@ function EditForm(props) {
 
   return (
     <div className="editLink">
-      {isSubmitting && <LinearProgress className="editLink__progress" />}
-
       <div className="editLink__title dialogTitle">
         <Typography className="dialogTitle_content">Sửa liên kết</Typography>
       </div>
 
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <Input name="title" label="Tiêu đề" form={form} />
+        <Input name="name" label="Tên liên kết" form={form} />
         <Input name="url" label="Liên kết" form={form} />
+        <Input name="sort" type="number" label="Số sắp xếp" form={form} />
 
         <Button
           className="dialogButtonSave"
@@ -59,7 +60,11 @@ function EditForm(props) {
           size="large"
           disabled={isSubmitting}
         >
-          Lưu
+          {isSubmitting ? (
+            <CircularProgress className="editLink__progress" />
+          ) : (
+            "Lưu"
+          )}
         </Button>
       </form>
     </div>

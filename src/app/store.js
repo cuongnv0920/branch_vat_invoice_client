@@ -6,6 +6,7 @@ import linkReducer from "../features/Links/linkSlice";
 import levelReducer from "../features/Levels/levelSlice";
 import userReducer from "../features/Users/userSlice";
 import marginReducer from "../features/Margin/marginSlice";
+import depositReducer from "../features/Deposit/depositSlice";
 
 const rootReducer = {
   toogleMenu: toogleMenuReducer,
@@ -15,6 +16,7 @@ const rootReducer = {
   level: levelReducer,
   user: userReducer,
   margin: marginReducer,
+  deposit: depositReducer,
 };
 
 const store = configureStore({

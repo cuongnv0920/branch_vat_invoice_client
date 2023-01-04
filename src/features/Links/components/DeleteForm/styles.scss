@@ -1,13 +1,4 @@
 .deleteLink {
-  position: relative;
-
-  &__progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
   &__content {
     display: flex;
   }

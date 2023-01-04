@@ -6,20 +6,16 @@ import {
   Typography,
 } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-// import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import MaterialTable from "material-table";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import Moment from "react-moment";
 import { useDispatch } from "react-redux";
 import { marginApi } from "../../../../api";
-import api from "../../../../configs/api.conf";
-import Moment from "react-moment";
-import Create from "../Create";
-// import Delete from "../Delete";
-import Edit from "../Edit";
-import { useSnackbar } from "notistack";
-import "./styles.scss";
 import { removeSelected, selected } from "../../marginSlice";
+import Create from "../Create";
+import Edit from "../Edit";
 
 MarginList.propTypes = {};
 
@@ -28,14 +24,6 @@ const columns = [
     title: "STT",
     field: "stt",
     editable: "never",
-  },
-  {
-    title: "Quốc gia",
-    field: "ensign",
-    editable: "never",
-    render: (row) => (
-      <img src={api.URL + "/" + row.ensign} alt="ensign" className="ensign" />
-    ),
   },
   {
     title: "Mã ngoại tệ",
@@ -58,6 +46,11 @@ const columns = [
     cellStyle: { whiteSpace: "nowrap" },
   },
   {
+    title: "Số sắp xếp",
+    field: "sort",
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
     title: "Ngày khởi tạo",
     field: "createdAt",
     render: (row) => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>,
@@ -68,7 +61,6 @@ const columns = [
 function MarginList(props) {
   const [openDialogCreate, setOpenDialogCreate] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
-  // const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [onSelected, setOnSelected] = useState();
   const [rowData, setRowData] = useState([]);
   const dispatch = useDispatch();
@@ -88,14 +80,6 @@ function MarginList(props) {
 
     setOpenDialogEdit(false);
   };
-
-  //   const handleCloseDialogDelete = async () => {
-  //     const action = removeSelected();
-  //     await dispatch(action);
-
-  //     setOpenDialogDelete(false);
-  //   };
-
   const onRowUpdate = async () => {
     if (onSelected?.length >= 2) {
       enqueueSnackbar("Bạn chỉ được chọn 1 dòng.", { variant: "warning" });
@@ -107,21 +91,9 @@ function MarginList(props) {
     }
   };
 
-  //   const onRowDelete = async () => {
-  //     if (onSelected?.length >= 2) {
-  //       enqueueSnackbar("Bạn chỉ được chọn 1 dòng.", { variant: "warning" });
-  //     } else {
-  //       const action = selected(onSelected[0]);
-  //       await dispatch(action);
-
-  //       setOpenDialogDelete(true);
-  //     }
-  //   };
-
   useEffect(() => {
     const fetchMargins = async () => {
-      const margins = await marginApi.list();
-
+      const margins = await marginApi.getAll();
       setRowData(
         margins.map((margin, index) => ({ ...margin, stt: index + 1 }))
       );
@@ -149,11 +121,6 @@ function MarginList(props) {
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
-          //   {
-          //     icon: () => <DeleteIcon className="materialTableIconDelete" />,
-          //     tooltip: "Xóa liên kết",
-          //     onClick: onRowDelete,
-          //   },
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
             tooltip: "Sửa biên độ tỷ giá",
@@ -208,7 +175,7 @@ function MarginList(props) {
       </Dialog>
 
       <Dialog
-        mfullWidth="xs"
+        fullWidth="xs"
         maxWidth="xs"
         open={openDialogEdit}
         onClose={(event, reason) => {
@@ -230,30 +197,6 @@ function MarginList(props) {
           </Button>
         </DialogActions>
       </Dialog>
-
-      {/* <Dialog
-        fullWidth="sm"
-        maxWidth="sm"
-        open={openDialogDelete}
-        onClose={(event, reason) => {
-          if (reason !== "backdropClick") {
-            handleCloseDialogDelete(event, reason);
-          }
-        }}
-      >
-        <DialogContent>
-          <Delete closeDialog={handleCloseDialogDelete} />
-        </DialogContent>
-
-        <DialogActions className="dialogAction">
-          <Button
-            className="dialogButtonCancel"
-            onClick={handleCloseDialogDelete}
-          >
-            Thoát
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </>
   );
 }
