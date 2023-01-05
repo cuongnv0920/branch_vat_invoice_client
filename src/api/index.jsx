@@ -5,3 +5,4 @@ export * from "./common/roomApi";
 export * from "./common/userApi";
 export * from "./common/marginApi";
 export * from "./common/depositApi";
+export * from "./common/authApi";

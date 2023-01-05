@@ -6,7 +6,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { openMenu } from "../Menu/menuSlice";
+import { logout } from "../../../features/Auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 Header.propTypes = {};
 
@@ -43,6 +46,7 @@ const useStyle = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    flexGrow: 1,
   },
 
   menuButton: {
@@ -52,6 +56,10 @@ const useStyle = makeStyles((theme) => ({
   hide: {
     display: "none",
   },
+
+  logout: {
+    color: "#ff3d00",
+  },
 }));
 
 export function Header(props) {
@@ -59,10 +67,18 @@ export function Header(props) {
 
   const toogleMenu = useSelector((state) => state.toogleMenu);
   const dispath = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenMenu = () => {
     const action = openMenu();
     dispath(action);
+  };
+
+  const handleLogout = () => {
+    const action = logout();
+    dispath(action);
+
+    navigate("/", { replace: true });
   };
 
   return (
@@ -87,6 +103,14 @@ export function Header(props) {
         <Typography className={classes.title}>
           NGÂN HÀNG TMCP ĐẦU TƯ VÀ PHÁT TRIỂN VIỆT NAM - CHI NHÁNH GIA LÂM
         </Typography>
+
+        <IconButton
+          title="Thoát"
+          onClick={handleLogout}
+          className={classes.logout}
+        >
+          <ExitToAppIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
