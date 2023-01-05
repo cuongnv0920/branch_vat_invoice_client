@@ -8,6 +8,8 @@ import Margin from "./features/Margin";
 import Room from "./features/Rooms";
 import User from "./features/Users";
 import Deposit from "./features/Deposit";
+import { useSelector } from "react-redux";
+import Auth from "./features/Auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const logged = useSelector((state) => state.auth.current);
+
+  const isLogged = () => {
+    if (logged.role === "admin") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const classes = useStyles();
+
   const routes = [
     {
       path: "category/*",
@@ -67,21 +80,25 @@ function App() {
     },
   ];
 
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Header />
-      <Menu />
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+    <div>
+      {!isLogged() && <Auth />}
 
-        <Routes>
-          {routes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </main>
+      {isLogged() && (
+        <div className={classes.root}>
+          <Header />
+          <Menu />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+
+            <Routes>
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Routes>
+          </main>
+        </div>
+      )}
     </div>
   );
 }
