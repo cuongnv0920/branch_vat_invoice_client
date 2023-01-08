@@ -18,6 +18,8 @@ import Delete from "../Delete";
 import Edit from "../Edit";
 import { useSnackbar } from "notistack";
 import { removeSelected, selected } from "../../depositSlice";
+import UpdateIcon from "@material-ui/icons/Update";
+import Effect from "../Effect";
 
 DepositList.propTypes = {};
 
@@ -64,6 +66,7 @@ function DepositList(props) {
   const [openDialogCreate, setOpenDialogCreate] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [openDialogEffect, setOpenDialogEffect] = useState(false);
   const [onSelected, setOnSelected] = useState();
   const [rowData, setRowData] = useState([]);
   const dispatch = useDispatch();
@@ -75,6 +78,14 @@ function DepositList(props) {
 
   const handleOpenDialogCreate = () => {
     setOpenDialogCreate(true);
+  };
+
+  const handleOpenDialogEffect = () => {
+    setOpenDialogEffect(true);
+  };
+
+  const handleCloseDialogEffect = () => {
+    setOpenDialogEffect(false);
   };
 
   const handleCloseDialogEdit = async () => {
@@ -138,18 +149,24 @@ function DepositList(props) {
         actions={[
           {
             icon: () => <AddCircleIcon className="materialTableIconAdd" />,
-            tooltip: "Thêm liên kết",
+            tooltip: "Thêm biên độ tỷ giá",
             isFreeAction: true,
             onClick: handleOpenDialogCreate,
           },
           {
+            icon: () => <UpdateIcon className="materialTableIconUpdate" />,
+            tooltip: "Cập nhật ngày hiệu lực",
+            isFreeAction: true,
+            onClick: handleOpenDialogEffect,
+          },
+          {
             icon: () => <DeleteIcon className="materialTableIconDelete" />,
-            tooltip: "Xóa liên kết",
+            tooltip: "Xóa biên độ tỷ giá",
             onClick: onRowDelete,
           },
           {
             icon: () => <EditIcon className="materialTableIconEdit" />,
-            tooltip: "Sửa liên kết",
+            tooltip: "Sửa biên độ tỷ giá",
             onClick: onRowUpdate,
           },
         ]}
@@ -242,6 +259,30 @@ function DepositList(props) {
           <Button
             className="dialogButtonCancel"
             onClick={handleCloseDialogDelete}
+          >
+            Thoát
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        fullWidth="xs"
+        maxWidth="xs"
+        open={openDialogEffect}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleCloseDialogEffect(event, reason);
+          }
+        }}
+      >
+        <DialogContent>
+          <Effect closeDialog={handleCloseDialogEffect} />
+        </DialogContent>
+
+        <DialogActions className="dialogAction">
+          <Button
+            className="dialogButtonCancel"
+            onClick={handleCloseDialogEffect}
           >
             Thoát
           </Button>

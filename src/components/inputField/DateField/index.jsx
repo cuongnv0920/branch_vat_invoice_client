@@ -1,12 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import DateFnsUtils from "@date-io/date-fns";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import PropTypes from "prop-types";
+import React from "react";
 import { Controller } from "react-hook-form";
-import { FormLabel } from "@material-ui/core";
 
 DateField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -30,10 +29,11 @@ export function DateField(props) {
         fieldState: { invalid, error },
       }) => (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <FormLabel component="label">{lable}</FormLabel>
           <KeyboardDatePicker
+            fullWidth
             disableToolbar
             variant="inline"
+            label={lable}
             format={format}
             margin="normal"
             value={value}
