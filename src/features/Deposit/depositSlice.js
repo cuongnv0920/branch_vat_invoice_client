@@ -19,6 +19,12 @@ export const deleted = createAsyncThunk("deposit/delete", async (payload) => {
   return data;
 });
 
+export const effect = createAsyncThunk("deposit/effect", async (payload) => {
+  const data = await depositApi.effect(payload);
+
+  return data;
+});
+
 const depositSlice = createSlice({
   name: "deposit",
   initialState: {},

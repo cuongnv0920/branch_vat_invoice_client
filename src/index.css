@@ -74,6 +74,9 @@
 .materialTableIconEdit {
   color: #2979ff;
 }
+.materialTableIconUpdate {
+  color: #4caf50;
+}
 
 /* style dialog material-ui */
 .dialogTitle {

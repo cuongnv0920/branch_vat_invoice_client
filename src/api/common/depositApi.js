@@ -16,6 +16,11 @@ export const depositApi = {
     return axiosClient.put(url, data);
   },
 
+  effect(data) {
+    const url = `/deposit/effect`;
+    return axiosClient.put(url, data);
+  },
+
   delete(data) {
     const url = `/deposit/delete/${data.id}`;
     return axiosClient.put(url, data);
