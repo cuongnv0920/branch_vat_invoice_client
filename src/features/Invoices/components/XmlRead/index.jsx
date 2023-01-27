@@ -1,24 +1,21 @@
 import { unwrapResult } from "@reduxjs/toolkit";
+import { xmlRead } from "features/Invoices/invoiceSlice";
 import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
-import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../authSlice";
-import LoginForm from "../LoginForm";
+import XmlReadForm from "../XmlReadForm";
 
-Login.propTypes = {
+XmlRead.propTypes = {
   closeDialog: PropTypes.func,
 };
 
-function Login(props) {
+function XmlRead(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
-      const action = login(values);
+      const action = xmlRead(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
@@ -26,8 +23,6 @@ function Login(props) {
       if (closeDialog) {
         closeDialog();
       }
-
-      navigate("/invoice", { replace: true });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -35,9 +30,9 @@ function Login(props) {
 
   return (
     <div>
-      <LoginForm onSubmit={handleSubmit} />
+      <XmlReadForm onSubmit={handleSubmit} />
     </div>
   );
 }
 
-export default Login;
+export default XmlRead;

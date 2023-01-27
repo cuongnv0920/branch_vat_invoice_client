@@ -1,24 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import toogleMenuReducer from "../components/common/Menu/menuSlice";
-import categoryReducer from "../features/Category/categorySlice";
-import roomReducer from "../features/Rooms/roomSlice";
-import linkReducer from "../features/Links/linkSlice";
-import levelReducer from "../features/Levels/levelSlice";
-import userReducer from "../features/Users/userSlice";
-import marginReducer from "../features/Margin/marginSlice";
-import depositReducer from "../features/Deposit/depositSlice";
 import authReducer from "../features/Auth/authSlice";
+import drawerReducer from "../components/Drawer/drawerSlice";
+import incoiceReducer from "../features/Invoices/invoiceSlice";
 
 const rootReducer = {
-  toogleMenu: toogleMenuReducer,
-  category: categoryReducer,
-  room: roomReducer,
-  link: linkReducer,
-  level: levelReducer,
-  user: userReducer,
-  margin: marginReducer,
-  deposit: depositReducer,
   auth: authReducer,
+  drawer: drawerReducer,
+  invoice: incoiceReducer,
 };
 
 const store = configureStore({

@@ -1,10 +1,10 @@
-import { authApi } from "../../api";
-import StorageKeys from "../../configs/StorageKeys.conf";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { authApi, userApi } from "api";
+import StorageKeys from "configs/StorageKeys.conf";
 
 export const register = createAsyncThunk("user/create", async (payload) => {
   // call API to register
-  const data = await authApi.create(payload);
+  const data = await userApi.create(payload);
 
   // save data to local storage
   localStorage.setItem(StorageKeys.TOKEN, data.jwt);
@@ -14,7 +14,7 @@ export const register = createAsyncThunk("user/create", async (payload) => {
   return data.user;
 });
 
-export const login = createAsyncThunk("user/login", async (payload) => {
+export const login = createAsyncThunk("auth/login", async (payload) => {
   // call API to login
   const data = await authApi.login(payload);
 
@@ -26,17 +26,16 @@ export const login = createAsyncThunk("user/login", async (payload) => {
   return data.user;
 });
 
-// export const setting = createAsyncThunk("user/setting", async (payload) => {
-//   // call API to setting user
-//   const data = await authApi.update(payload);
+export const setting = createAsyncThunk("user/update", async (payload) => {
+  // call API to setting user
+  const data = await userApi.update(payload);
 
-//   // save data to local storage
-//   localStorage.getItem(StorageKeys.TOKEN, data.jwt);
-//   localStorage.getItem(StorageKeys.USER, JSON.stringify(data.user));
+  // save data to local storage
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
 
-//   // return user data
-//   return data.user;
-// });
+  // return user data
+  return data.user;
+});
 
 const userSlice = createSlice({
   name: "auth",
@@ -58,6 +57,10 @@ const userSlice = createSlice({
     },
 
     [login.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+
+    [setting.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
   },

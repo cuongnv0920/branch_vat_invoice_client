@@ -1,24 +1,22 @@
 import { unwrapResult } from "@reduxjs/toolkit";
+import { setting } from "features/Auth/authSlice";
 import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../authSlice";
-import LoginForm from "../LoginForm";
+import SettingForm from "../SettingForm";
 
-Login.propTypes = {
+Setting.propTypes = {
   closeDialog: PropTypes.func,
 };
 
-function Login(props) {
+function Setting(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
-      const action = login(values);
+      const action = setting(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
@@ -26,8 +24,9 @@ function Login(props) {
       if (closeDialog) {
         closeDialog();
       }
-
-      navigate("/invoice", { replace: true });
+      enqueueSnackbar("Cập nhật người dùng thành công.", {
+        variant: "success",
+      });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -35,9 +34,9 @@ function Login(props) {
 
   return (
     <div>
-      <LoginForm onSubmit={handleSubmit} />
+      <SettingForm onSubmit={handleSubmit} />
     </div>
   );
 }
 
-export default Login;
+export default Setting;

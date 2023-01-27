@@ -1,24 +1,22 @@
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useSnackbar } from "notistack";
-import PropTypes from "prop-types";
 import React from "react";
+import CreateForm from "../CreateForm";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../authSlice";
-import LoginForm from "../LoginForm";
+import { useSnackbar } from "notistack";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { create } from "features/Invoices/invoiceSlice";
 
-Login.propTypes = {
+Create.propTypes = {
   closeDialog: PropTypes.func,
 };
 
-function Login(props) {
+function Create(props) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
-      const action = login(values);
+      const action = create(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
@@ -26,8 +24,6 @@ function Login(props) {
       if (closeDialog) {
         closeDialog();
       }
-
-      navigate("/invoice", { replace: true });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -35,9 +31,9 @@ function Login(props) {
 
   return (
     <div>
-      <LoginForm onSubmit={handleSubmit} />
+      <CreateForm onSubmit={handleSubmit} />
     </div>
   );
 }
 
-export default Login;
+export default Create;

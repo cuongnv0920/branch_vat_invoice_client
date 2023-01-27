@@ -1,4 +1,4 @@
-import axiosClient from "../axios.Client";
+import axiosClient from "api/axiosClient";
 
 export const levelApi = {
   create(data) {
